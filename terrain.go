@@ -24,10 +24,10 @@ func createTerrain(e *engine.Entity, p *std.Vector3) {
 	)
 
 	sa := render.NewImage()
-	sa.LoadImage("assets", "scene_ground_1.png")
-	s := render.NewSprite(sa)
-	s.SetSpriteSize(208, 192)
-	material.SetSprite(s)
+	sa.LoadImage("assets/scene_ground_1.png")
+	s := render.NewTexture(sa)
+	s.SetSize(208, 192)
+	material.SetTexture(s)
 
 	e.AddComponent(material)
 }

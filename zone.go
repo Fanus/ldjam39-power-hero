@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/autovelop/playthos"
-	"github.com/autovelop/playthos/collision"
+	// "github.com/autovelop/playthos/collision"
+	_ "github.com/autovelop/playthos/glfw"
 	_ "github.com/autovelop/playthos/opengl"
-	_ "github.com/autovelop/playthos/opengl-glfw"
 	"github.com/autovelop/playthos/render"
 	"github.com/autovelop/playthos/std"
 )
@@ -27,10 +27,10 @@ func createStartZone(e *engine.Entity, p *std.Vector3) {
 	)
 
 	sa := render.NewImage()
-	sa.LoadImage("assets", "scene_start.png")
-	s := render.NewSprite(sa)
-	s.SetSpriteSize(24, 192)
-	material.SetSprite(s)
+	sa.LoadImage("assets/scene_start.png")
+	s := render.NewTexture(sa)
+	s.SetSize(24, 192)
+	material.SetTexture(s)
 
 	// e.AddComponent(material)
 	e.AddComponent(material)
@@ -54,16 +54,16 @@ func createSafeZone(e *engine.Entity, p *std.Vector3) {
 		&std.Color{1.0, 1.0, 1.0, 1.0},
 	)
 	sa := render.NewImage()
-	sa.LoadImage("assets", "scene_safe.png")
-	s := render.NewSprite(sa)
-	s.SetSpriteSize(24, 192)
-	material.SetSprite(s)
+	sa.LoadImage("assets/scene_safe.png")
+	s := render.NewTexture(sa)
+	s.SetSize(24, 192)
+	material.SetTexture(s)
 
 	e.AddComponent(material)
 
-	collider := collision.NewCollider()
-	collider.Set(transform, &std.Rect{&std.Vector2{0, -96}, 24, 192})
-	e.AddComponent(collider)
+	// collider := collision.NewCollider()
+	// collider.Set(transform, &std.Rect{&std.Vector2{0, -96}, 24, 192})
+	// e.AddComponent(collider)
 }
 
 func createNextZone(e *engine.Entity, p *std.Vector3) {
@@ -86,7 +86,7 @@ func createNextZone(e *engine.Entity, p *std.Vector3) {
 
 	e.AddComponent(material)
 
-	collider := collision.NewCollider()
-	collider.Set(transform, &std.Rect{&std.Vector2{0, -96}, 24, 192})
-	e.AddComponent(collider)
+	// collider := collision.NewCollider()
+	// collider.Set(transform, &std.Rect{&std.Vector2{0, -96}, 24, 192})
+	// e.AddComponent(collider)
 }

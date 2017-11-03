@@ -4,7 +4,7 @@ import (
 	"github.com/autovelop/playthos"
 	"github.com/autovelop/playthos/animation"
 	"github.com/autovelop/playthos/collision"
-	"github.com/autovelop/playthos/physics"
+	// "github.com/autovelop/playthos/physics"
 	"github.com/autovelop/playthos/render"
 	"github.com/autovelop/playthos/scripting"
 	"github.com/autovelop/playthos/std"
@@ -29,35 +29,35 @@ func createEnemy(e *engine.Entity, p *std.Vector3, patrolRange *std.Vector2, way
 	)
 
 	walkingWestAtlas := render.NewImage()
-	walkingWestAtlas.LoadImage("assets", "enemy_west.png")
-	walkingWestSprite := render.NewSprite(walkingWestAtlas)
-	walkingWestSprite.SetSpriteSize(11, 17)
+	walkingWestAtlas.LoadImage("assets/enemy_west.png")
+	walkingWestSprite := render.NewTexture(walkingWestAtlas)
+	walkingWestSprite.SetSize(11, 17)
 	walkingWestSpriteCoord := std.Vector2{0, 0}
-	walkingWestSprite.SetSpriteOffset(&walkingWestSpriteCoord)
+	walkingWestSprite.SetOffset(&walkingWestSpriteCoord)
 
-	material.SetSprite(walkingWestSprite)
+	material.SetTexture(walkingWestSprite)
 	e.AddComponent(material)
 
 	walkingEastAtlas := render.NewImage()
-	walkingEastAtlas.LoadImage("assets", "enemy_east.png")
-	walkingEastSprite := render.NewSprite(walkingEastAtlas)
-	walkingEastSprite.SetSpriteSize(11, 17)
+	walkingEastAtlas.LoadImage("assets/enemy_east.png")
+	walkingEastSprite := render.NewTexture(walkingEastAtlas)
+	walkingEastSprite.SetSize(11, 17)
 	walkingEastSpriteCoord := std.Vector2{0, 0}
-	walkingEastSprite.SetSpriteOffset(&walkingEastSpriteCoord)
+	walkingEastSprite.SetOffset(&walkingEastSpriteCoord)
 
 	walkingUpAtlas := render.NewImage()
-	walkingUpAtlas.LoadImage("assets", "enemy_up.png")
-	walkingUpSprite := render.NewSprite(walkingUpAtlas)
-	walkingUpSprite.SetSpriteSize(11, 17)
+	walkingUpAtlas.LoadImage("assets/enemy_up.png")
+	walkingUpSprite := render.NewTexture(walkingUpAtlas)
+	walkingUpSprite.SetSize(11, 17)
 	walkingUpSpriteCoord := std.Vector2{0, 0}
-	walkingUpSprite.SetSpriteOffset(&walkingUpSpriteCoord)
+	walkingUpSprite.SetOffset(&walkingUpSpriteCoord)
 
 	walkingDownAtlas := render.NewImage()
-	walkingDownAtlas.LoadImage("assets", "enemy_down.png")
-	walkingDownSprite := render.NewSprite(walkingDownAtlas)
-	walkingDownSprite.SetSpriteSize(11, 17)
+	walkingDownAtlas.LoadImage("assets/enemy_down.png")
+	walkingDownSprite := render.NewTexture(walkingDownAtlas)
+	walkingDownSprite.SetSize(11, 17)
 	walkingDownSpriteCoord := std.Vector2{0, 0}
-	walkingDownSprite.SetSpriteOffset(&walkingDownSpriteCoord)
+	walkingDownSprite.SetOffset(&walkingDownSpriteCoord)
 
 	walkingWestAnimation := animation.NewClip(1, 180, &walkingWestSpriteCoord)
 	walkingWestAnimation.AddKeyFrame(0, 29, &std.Vector2{0, 0})
@@ -104,14 +104,14 @@ func createEnemy(e *engine.Entity, p *std.Vector3, patrolRange *std.Vector2, way
 	e.AddComponent(walkingDownAnimation)
 
 	collider := collision.NewCollider()
-	collider.Set(transform, &std.Rect{&std.Vector2{-5.5, -8.5}, 11, 17})
+	// collider.Set(transform, &std.Rect{&std.Vector2{-5.5, -8.5}, 11, 17})
 	e.AddComponent(collider)
 
-	velocity := physics.NewVelocity()
-	e.AddComponent(velocity)
+	// velocity := physics.NewVelocity()
+	// e.AddComponent(velocity)
 
-	acc := physics.NewAcceleration()
-	e.AddComponent(acc)
+	// 	acc := physics.NewAcceleration()
+	// 	e.AddComponent(acc)
 
 	// patrol := animation.NewClip(1, 1200, p)
 	// patrol.AddKeyFrame(0, 0, &std.Vector3{p.X, p.Y, 0})
@@ -150,7 +150,7 @@ func createEnemy(e *engine.Entity, p *std.Vector3, patrolRange *std.Vector2, way
 					es.NextWaypoint()
 				}
 			}
-			velocity.Set(waypoint.Bearing().X, waypoint.Bearing().Y, 0)
+			// velocity.Set(waypoint.Bearing().X, waypoint.Bearing().Y, 0)
 		}
 	})
 	es.StartPatrol()

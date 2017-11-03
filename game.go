@@ -3,69 +3,74 @@ package main
 import (
 	"github.com/autovelop/playthos"
 	"github.com/autovelop/playthos/audio"
-	"github.com/autovelop/playthos/audio/wav"
+	// "github.com/autovelop/playthos/audio/wav"
+	// "fmt"
+	_ "github.com/autovelop/playthos/glfw"
+	_ "github.com/autovelop/playthos/glfw/keyboard"
 	"github.com/autovelop/playthos/keyboard"
+	_ "github.com/autovelop/playthos/openal"
 	_ "github.com/autovelop/playthos/opengl"
-	_ "github.com/autovelop/playthos/opengl-glfw"
+	_ "github.com/autovelop/playthos/platforms/web/audio"
+	_ "github.com/autovelop/playthos/platforms/web/keyboard"
 	"github.com/autovelop/playthos/render"
 	"github.com/autovelop/playthos/std"
+	_ "github.com/autovelop/playthos/webgl"
 	"os"
 )
 
 func main() {
 	game := engine.New("LDJAM39", "github.com/autovelop/ldjam39power", &engine.Settings{
-		true,
+		false,
 		1024,
 		768,
 		false,
 	})
-	if engine.Play() {
-		kb := game.Listener(&keyboard.Keyboard{})
-		kb.On(keyboard.KeyEscape, func(action ...uint) {
-			switch action[0] {
-			case keyboard.ActionRelease:
-				game.Stop()
-				os.Exit(0)
-			}
-		})
+	kb := game.Listener(&keyboard.Keyboard{})
+	// fmt.Println(kb)
+	kb.On(keyboard.KeyEscape, func(action ...int) {
+		switch action[0] {
+		case keyboard.ActionRelease:
+			game.Stop()
+			os.Exit(0)
+		}
+	})
 
-		// running := false
-		mu := game.NewEntity()
-		musicWAV := wav.NewWAVFile()
-		musicWAV.Load("assets", "music3.wav")
-		music := audio.NewSound()
-		music.Set(musicWAV, true, true)
-		mu.AddComponent(music)
+	mu := game.NewEntity()
+	clip := audio.NewClip()
+	clip.LoadClip("assets/music3.wav")
+	music := audio.NewSound()
+	music.Set(clip)
+	mu.AddComponent(music)
 
-		cam := game.NewEntity()
-		createCamera(cam)
+	src := audio.NewSource()
+	src.Set(&std.Vector3{0, 0, 0}, true, true)
+	src.PlaySound(music)
+	mu.AddComponent(src)
 
-		levels := []*Level{}
+	cam := game.NewEntity()
+	createCamera(cam)
 
-		/*
-			LEVELS
-		*/
-		levels = append(levels, BuildLevel1(game))
-		levels = append(levels, BuildLevel2(game))
-		levels = append(levels, BuildLevel3(game))
-		levels = append(levels, BuildEnd(game))
+	levels := []*Level{}
 
-		/*
-			PLAYER
-		*/
-		player := game.NewEntity()
-		createPlayer(player, &std.Vector3{0, 0, 3}, cam, levels)
+	/*
+		LEVELS
+	*/
+	levels = append(levels, BuildLevel1(game))
+	levels = append(levels, BuildLevel2(game))
+	levels = append(levels, BuildLevel3(game))
+	levels = append(levels, BuildEnd(game))
 
-		handlePlayerInput(kb, player)
+	/*
+		PLAYER
+	*/
+	player := game.NewEntity()
+	createPlayer(player, &std.Vector3{0, 0, 3}, cam, levels)
 
-		handleCable(player)
+	handlePlayerInput(kb, player)
 
-		game.Start()
-	} else {
-		game.Deploy(engine.PlatformLinux, engine.PlatformMacOS, engine.PlatformWindows)
-		// game.Deploy(engine.PlatformLinux, engine.PlatformWindows)
-		// game.Deploy(engine.PlatformLinux)
-	}
+	handleCable(player)
+
+	game.Start()
 }
 
 func BuildLevel1(game *engine.Engine) *Level {
@@ -83,10 +88,10 @@ func BuildLevel1(game *engine.Engine) *Level {
 	createSafeZone(safeZone, &std.Vector3{offset + 116, 0, 2})
 
 	nextN := game.NewEntity()
-	createNextZone(nextN, &std.Vector3{offset + 116, 192, 3})
+	createNextZone(nextN, &std.Vector3{offset + 116, 200, 3})
 
 	nextS := game.NewEntity()
-	createNextZone(nextS, &std.Vector3{offset + 116, -192, 3})
+	createNextZone(nextS, &std.Vector3{offset + 116, -200, 3})
 
 	enemy1 := game.NewEntity()
 	w1 := []*Waypoint{}
@@ -127,10 +132,10 @@ func BuildLevel2(game *engine.Engine) *Level {
 	createSafeZone(safeZone, &std.Vector3{offset + 116, 0, 2})
 
 	nextN := game.NewEntity()
-	createNextZone(nextN, &std.Vector3{offset + 116, 192, 3})
+	createNextZone(nextN, &std.Vector3{offset + 116, 200, 3})
 
 	nextS := game.NewEntity()
-	createNextZone(nextS, &std.Vector3{offset + 116, -192, 3})
+	createNextZone(nextS, &std.Vector3{offset + 116, -200, 3})
 
 	enemy1 := game.NewEntity()
 	w1 := []*Waypoint{}
@@ -179,10 +184,10 @@ func BuildLevel3(game *engine.Engine) *Level {
 	createSafeZone(safeZone, &std.Vector3{offset + 116, 0, 2})
 
 	nextN := game.NewEntity()
-	createNextZone(nextN, &std.Vector3{offset + 116, 192, 3})
+	createNextZone(nextN, &std.Vector3{offset + 116, 200, 3})
 
 	nextS := game.NewEntity()
-	createNextZone(nextS, &std.Vector3{offset + 116, -192, 3})
+	createNextZone(nextS, &std.Vector3{offset + 116, -200, 3})
 
 	enemy1 := game.NewEntity()
 	w1 := []*Waypoint{}
@@ -252,10 +257,10 @@ func createEnd(e *engine.Entity, p *std.Vector3) {
 	)
 
 	sa := render.NewImage()
-	sa.LoadImage("assets", "Outro.png")
-	s := render.NewSprite(sa)
-	s.SetSpriteSize(256, 192)
-	material.SetSprite(s)
+	sa.LoadImage("assets/Outro.png")
+	s := render.NewTexture(sa)
+	s.SetSize(256, 192)
+	material.SetTexture(s)
 
 	e.AddComponent(material)
 }

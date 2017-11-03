@@ -15,10 +15,10 @@ type PlayerState struct {
 	camera *engine.Entity
 	entity *engine.Entity
 
-	walkingWSprite    *render.Sprite
-	walkingDownSprite *render.Sprite
-	walkingUpSprite   *render.Sprite
-	idleSprite        *render.Sprite
+	walkingWSprite    *render.Texture
+	walkingDownSprite *render.Texture
+	walkingUpSprite   *render.Texture
+	idleSprite        *render.Texture
 
 	idleAnimation        *animation.AnimationClip
 	walkingWAnimation    *animation.AnimationClip
@@ -85,19 +85,19 @@ func (p *PlayerState) SetStartPos(pos *std.Vector3) {
 	p.startPos = pos
 }
 
-func (p *PlayerState) Idle() (*render.Sprite, *animation.AnimationClip) {
+func (p *PlayerState) Idle() (*render.Texture, *animation.AnimationClip) {
 	return p.idleSprite, p.idleAnimation
 }
 
-func (p *PlayerState) WalkingW() (*render.Sprite, *animation.AnimationClip) {
+func (p *PlayerState) WalkingW() (*render.Texture, *animation.AnimationClip) {
 	return p.walkingWSprite, p.walkingWAnimation
 }
 
-func (p *PlayerState) WalkingUp() (*render.Sprite, *animation.AnimationClip) {
+func (p *PlayerState) WalkingUp() (*render.Texture, *animation.AnimationClip) {
 	return p.walkingUpSprite, p.walkingUpAnimation
 }
 
-func (p *PlayerState) WalkingDown() (*render.Sprite, *animation.AnimationClip) {
+func (p *PlayerState) WalkingDown() (*render.Texture, *animation.AnimationClip) {
 	return p.walkingDownSprite, p.walkingDownAnimation
 }
 
@@ -124,7 +124,7 @@ func (p *PlayerState) NextLevel() {
 	}
 }
 
-func (p *PlayerState) SetSprites(i *render.Sprite, w *render.Sprite, u *render.Sprite, d *render.Sprite) {
+func (p *PlayerState) SetSprites(i *render.Texture, w *render.Texture, u *render.Texture, d *render.Texture) {
 	p.idleSprite = i
 	p.walkingWSprite = w
 	p.walkingUpSprite = u
