@@ -4,7 +4,6 @@ import (
 	"github.com/autovelop/playthos"
 	"github.com/autovelop/playthos/audio"
 	// "github.com/autovelop/playthos/audio/wav"
-	// "fmt"
 	_ "github.com/autovelop/playthos/glfw"
 	_ "github.com/autovelop/playthos/glfw/keyboard"
 	"github.com/autovelop/playthos/keyboard"
@@ -19,14 +18,84 @@ import (
 )
 
 func main() {
-	game := engine.New("LDJAM39", "github.com/autovelop/ldjam39power", &engine.Settings{
+	// All assets paths must be registered to be included in deploys
+	engine.RegisterAsset("assets/music3.wav")
+	engine.RegisterAsset("assets/scene_ground_1.png")
+	engine.RegisterAsset("assets/scene_start.png")
+	engine.RegisterAsset("assets/scene_safe.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/scene_ground_1.png")
+	engine.RegisterAsset("assets/scene_start.png")
+	engine.RegisterAsset("assets/scene_safe.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/scene_ground_1.png")
+	engine.RegisterAsset("assets/scene_start.png")
+	engine.RegisterAsset("assets/scene_safe.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/enemy_west.png")
+	engine.RegisterAsset("assets/enemy_east.png")
+	engine.RegisterAsset("assets/enemy_up.png")
+	engine.RegisterAsset("assets/enemy_down.png")
+	engine.RegisterAsset("assets/Outro.png")
+	engine.RegisterAsset("assets/player_idle.png")
+	engine.RegisterAsset("assets/player_east.png")
+	engine.RegisterAsset("assets/player_up.png")
+	engine.RegisterAsset("assets/player_down.png")
+	engine.RegisterAsset("assets/cableblock.png")
+
+	game := engine.New("LDJAM39", &engine.Settings{
 		false,
 		1024,
 		768,
 		false,
 	})
 	kb := game.Listener(&keyboard.Keyboard{})
-	// fmt.Println(kb)
+
 	kb.On(keyboard.KeyEscape, func(action ...int) {
 		switch action[0] {
 		case keyboard.ActionRelease:
